@@ -41,16 +41,16 @@ def main(data_names, output_dir):
         curr_label += 1
     labels = np.array(labels, dtype=int)
 
-    np.savez(datasets_dimred, output_dir + "/datasets_dimred.npz")
-    np.savez(datasets, output_dir + "/datasets.npz")
-    np.savez(genes, output_dir + "/genes.npz")
+    np.savez(output_dir + "/datasets_dimred.npz", datasets_dimred)
+    np.savez(output_dir + "/datasets.npz", datasets)
+    np.savez(output_dir + "/genes.npz", genes)
 
 
     embedding = visualize(datasets_dimred,
                           labels, NAMESPACE + '_ds', names,
                           multicore_tsne=False, out_dir=output_dir)
 
-    np.savez(embedding, output_dir + '/tsne.npz')
+    np.savez(output_dir + '/tsne.npz', embedding)
 
     # Uncorrected.
     datasets, genes_list, n_cells = load_names(data_names)
