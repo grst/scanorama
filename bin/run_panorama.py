@@ -43,12 +43,15 @@ def main(data_names, output_dir):
 
     np.savez(output_dir + "/datasets_dimred.npz", datasets_dimred)
     np.savez(output_dir + "/datasets.npz", datasets)
-    np.savez(output_dir + "/genes.npz", genes)
+    np.savetxt(output_dir + "/genes.txt", genes, fmt="%s")
+    np.savetxt(output_dir + "/labels.txt", labels, fmt="%i")
+    np.savetxt(output_dir + "/label_names.txt", names, fmt="%s")
 
 
     embedding = visualize(datasets_dimred,
                           labels, NAMESPACE + '_ds', names,
-                          multicore_tsne=False, out_dir=output_dir)
+                          multicore_tsne=False, out_dir=output_dir,
+                          image_suffix=".png")
 
     np.savez(output_dir + '/tsne.npz', embedding)
 
@@ -67,7 +70,9 @@ def main(data_names, output_dir):
     labels = np.array(labels, dtype=int)
 
     embedding = visualize(datasets_dimred, labels,
-                          NAMESPACE + '_ds_uncorrected', names, out_dir=output_dir)
+                          NAMESPACE + '_ds_uncorrected', names,
+                          out_dir=output_dir,
+                          image_suffix=".png")
 
 
 if __name__ == '__main__':
